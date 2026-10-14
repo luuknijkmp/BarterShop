@@ -1,0 +1,38 @@
+{
+	"schemaVersion": 1,
+	"id": "bartershop",
+	"version": "${version}",
+	"name": "BarterShop",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/bartershop/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.siskin.bartershop.BarterShop"
+		],
+		"client": [
+			"com.siskin.bartershop.client.BarterShopClient"
+		]
+	},
+	"mixins": [
+		"bartershop.mixins.json",
+		{
+			"config": "bartershop.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}
