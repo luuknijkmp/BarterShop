@@ -52,6 +52,12 @@ BarterShop checks that the chest has enough stock, the buyer has the required pa
 
 Shops use regular Minecraft items as currency, so there's no separate economy or currency system to manage.
 
+### Admin Permissions
+
+BarterShop provides the `bartershop:admin` permission, allowing server administrators to manage and remove shops owned by other players.
+
+Server operators with **OP level 2 or higher** automatically have this permission. The permission can also be used with compatible permission management mods, such as LuckPerms.
+
 ## Shop Protection
 
 Registered shops are protected against other players opening or breaking their chests and signs.
