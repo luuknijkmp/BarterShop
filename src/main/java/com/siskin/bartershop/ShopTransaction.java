@@ -20,7 +20,7 @@ public class ShopTransaction {
 
         // Work with copies so failed trades change nothing.
         List<ItemStack> chestCopy = snapshot(chest);
-        List<ItemStack> playerCopy = snapshot(inventory);
+        List<ItemStack> playerCopy = snapshot(inventory).subList(0, 36);
 
         if (!remove(chestCopy, trade.sellingItem(),
                 trade.sellingAmount())) {
