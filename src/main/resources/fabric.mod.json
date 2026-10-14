@@ -3,15 +3,16 @@
 	"id": "bartershop",
 	"version": "${version}",
 	"name": "BarterShop",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "BarterShop is a lightweight, server-friendly chest shop mod that lets players buy and sell items using simple signs and item-based trades. Create secure shops without commands, complicated setups, or a client-side installation.",
 	"authors": [
-		"Me!"
+		"Siskin"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://modrinth.com/project/bartershop",
+		"sources": "https://github.com/luuknijkmp/BarterShop",
+		"issues": "https://github.com/luuknijkmp/BarterShop/issues"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/bartershop/icon.png",
 	"environment": "*",
 	"entrypoints": {
@@ -19,15 +20,10 @@
 			"com.siskin.bartershop.BarterShop"
 		],
 		"client": [
-			"com.siskin.bartershop.client.BarterShopClient"
 		]
 	},
 	"mixins": [
-		"bartershop.mixins.json",
-		{
-			"config": "bartershop.client.mixins.json",
-			"environment": "client"
-		}
+		"bartershop.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.19.5",

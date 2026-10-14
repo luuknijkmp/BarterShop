@@ -102,9 +102,8 @@ public abstract class SignBlockEntityMixin {
         if (ShopSignParser.parse(sign) == null) {
             bartershop$markInvalid(sign, serverPlayer);
             serverPlayer.sendSystemMessage(
-                    Component.literal(
-                            "§c[BarterShop] Invalid shop trade!"
-                    )
+                    Component.literal("§cInvalid shop trade!"),
+                    true
             );
             return;
         }
@@ -123,9 +122,8 @@ public abstract class SignBlockEntityMixin {
         if (!(serverPlayer.level().getBlockEntity(chestPos)
                 instanceof ChestBlockEntity)) {
             serverPlayer.sendSystemMessage(
-                    Component.literal(
-                            "§c[BarterShop] Sign must be on a chest!"
-                    )
+                    Component.literal("§cSign must be on a chest!"),
+                    true
             );
             return;
         }
@@ -147,9 +145,8 @@ public abstract class SignBlockEntityMixin {
             bartershop$markInvalid(sign, serverPlayer);
 
             serverPlayer.sendSystemMessage(
-                    Component.literal(
-                            "§c[BarterShop] This chest already has a shop!"
-                    )
+                    Component.literal("§cThis chest already has a shop!"),
+                    true
             );
             return;
         }
@@ -157,16 +154,42 @@ public abstract class SignBlockEntityMixin {
 
 
         // Automatically insert the creator's username.
+
+        // Automatically style the shop sign.
         String ownerName =
                 serverPlayer.getGameProfile().name();
 
         sign.updateText(
-                text -> text.setMessage(
-                        3,
-                        Component.literal(ownerName)
-                ),
+                text -> text
+                        .setMessage(
+                                0,
+                                Component.literal("[SHOP]")
+                                        .withStyle(ChatFormatting.BOLD)
+                        )
+                        .setMessage(
+                                1,
+                                Component.literal(
+                                        sign.getFrontText()
+                                                .getMessage(1, false)
+                                                .getString()
+                                ).withStyle(ChatFormatting.GREEN)
+                        )
+                        .setMessage(
+                                2,
+                                Component.literal(
+                                        sign.getFrontText()
+                                                .getMessage(2, false)
+                                                .getString()
+                                ).withStyle(ChatFormatting.AQUA)
+                        )
+                        .setMessage(
+                                3,
+                                Component.literal(ownerName)
+                                        .withStyle(ChatFormatting.ITALIC)
+                        ),
                 true
         );
+
 
         serverPlayer.level().sendBlockUpdated(
                 sign.getBlockPos(),
@@ -176,9 +199,8 @@ public abstract class SignBlockEntityMixin {
         );
 
         serverPlayer.sendSystemMessage(
-                Component.literal(
-                        "§a[BarterShop] Shop created successfully!"
-                )
+                Component.literal("§aShop created successfully!"),
+                true
         );
     }
 

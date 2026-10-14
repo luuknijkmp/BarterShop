@@ -19,6 +19,8 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
 import java.util.ArrayList;
 import java.util.List;
+import net.minecraft.world.Container;
+import net.minecraft.world.level.block.ChestBlock;
 
 public class BarterShop implements ModInitializer {
 
@@ -69,17 +71,13 @@ public class BarterShop implements ModInitializer {
 						return true;
 					}
 
-					if (ShopManager.isOwner(
-							shop,
-							serverPlayer.getUUID()
-					)) {
+					if (ShopPermissions.canManageShop(serverPlayer, shop)) {
 						return true;
 					}
 
-
 					serverPlayer.sendSystemMessage(
 							Component.literal(
-									"§c[BarterShop] You cannot break someone else's shop!"
+									"§cYou cannot break someone else's shop!"
 							),
 							true
 					);
@@ -112,6 +110,51 @@ public class BarterShop implements ModInitializer {
 				}
 
 		);
+
+
+		PlayerBlockBreakEvents.AFTER.register(
+				(level, player, pos, state, blockEntity) -> {
+
+					if (level.isClientSide()) {
+						return;
+					}
+
+					if (!(player instanceof ServerPlayer serverPlayer)) {
+						return;
+					}
+
+					// Was the broken block a registered shop sign?
+					ShopData shop = ShopManager.getShopBySign(
+							serverPlayer.level(),
+							pos
+					);
+
+					// Or was it a registered shop chest?
+					if (shop == null) {
+						shop = ShopManager.getShopByChest(
+								serverPlayer.level(),
+								pos
+						);
+					}
+
+					if (shop == null) {
+						return;
+					}
+
+					ShopManager.removeShop(
+							serverPlayer.level(),
+							shop.signPos()
+					);
+
+					serverPlayer.sendSystemMessage(
+							Component.literal(
+									"§eShop removed."
+							),
+							true
+					);
+				}
+		);
+
 
 
 		ServerTickEvents.END_SERVER_TICK.register(server -> {
@@ -162,6 +205,34 @@ public class BarterShop implements ModInitializer {
 				return InteractionResult.PASS;
 			}
 
+
+			BlockPos clickedPos = hitResult.getBlockPos();
+
+// Check whether the player is opening a registered shop chest.
+			if (level.getBlockEntity(clickedPos) instanceof ChestBlockEntity) {
+
+				ShopData chestShop = ShopManager.getShopByChest(
+						serverPlayer.level(),
+						clickedPos
+				);
+
+				if (chestShop != null
+						&& serverPlayer.level().getGameRules()
+						.get(ShopGameRules.SHOP_PROTECTION)
+						&& !ShopPermissions.canManageShop(serverPlayer, chestShop)) {
+
+					serverPlayer.sendSystemMessage(
+							Component.literal(
+									"§cOnly the shop owner can open this chest!"
+							),
+							true
+					);
+
+					return InteractionResult.SUCCESS;
+				}
+			}
+
+
 			BlockPos signPos = hitResult.getBlockPos();
 
 			if (!(level.getBlockEntity(signPos)
@@ -196,7 +267,7 @@ public class BarterShop implements ModInitializer {
 					instanceof ChestBlockEntity)) {
 
 				serverPlayer.sendSystemMessage(
-						Component.literal("§c[BarterShop] Sign must be attached to a chest!"),
+						Component.literal("§cSign must be attached to a chest!"),
 						true
 				);
 
@@ -211,7 +282,7 @@ public class BarterShop implements ModInitializer {
 			if (registeredShop == null) {
 				serverPlayer.sendSystemMessage(
 						Component.literal(
-								"§c[BarterShop] This shop is not registered!"
+								"§cThis shop is not registered!"
 						),
 						true
 				);
@@ -226,7 +297,7 @@ public class BarterShop implements ModInitializer {
 
 			if (trade == null) {
 				serverPlayer.sendSystemMessage(
-						Component.literal("§c[BarterShop] Invalid trade format!"),
+						Component.literal("§cInvalid trade format!"),
 						true
 				);
 
@@ -234,14 +305,32 @@ public class BarterShop implements ModInitializer {
 			}
 
 // The shop sign contains a valid trade.
-			serverPlayer.sendSystemMessage(
-					Component.literal("§a[BarterShop] Shop trade recognized!"),
-					true
-			);
 
 
-			ChestBlockEntity chest =
-					(ChestBlockEntity) level.getBlockEntity(chestPos);
+			BlockState chestState = level.getBlockState(chestPos);
+
+			Container chest = null;
+
+			if (chestState.getBlock() instanceof ChestBlock chestBlock) {
+				chest = ChestBlock.getContainer(
+						chestBlock,
+						chestState,
+						level,
+						chestPos,
+						true
+				);
+			}
+
+			if (chest == null) {
+				serverPlayer.sendSystemMessage(
+						Component.literal(
+								"§cShop chest is unavailable!"
+						),
+						true
+				);
+
+				return InteractionResult.SUCCESS;
+			}
 
 			String error = ShopTransaction.execute(
 					serverPlayer,
@@ -251,12 +340,12 @@ public class BarterShop implements ModInitializer {
 
 			if (error != null) {
 				serverPlayer.sendSystemMessage(
-						Component.literal("§c[BarterShop] " + error),
+						Component.literal("§c" + error),
 						true
 				);
 			} else {
 				serverPlayer.sendSystemMessage(
-						Component.literal("§a[BarterShop] Trade successful!"),
+						Component.literal("§aTrade successful!"),
 						true
 				);
 			}
