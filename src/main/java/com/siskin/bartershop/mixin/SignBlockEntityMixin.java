@@ -24,6 +24,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import net.minecraft.world.level.block.entity.BarrelBlockEntity;
 
 import java.util.List;
 import java.util.UUID;
@@ -119,10 +120,12 @@ public abstract class SignBlockEntityMixin {
         BlockPos chestPos = sign.getBlockPos()
                 .relative(facing.getOpposite());
 
-        if (!(serverPlayer.level().getBlockEntity(chestPos)
-                instanceof ChestBlockEntity)) {
+        var container = serverPlayer.level().getBlockEntity(chestPos);
+
+        if (!(container instanceof ChestBlockEntity)
+                && !(container instanceof BarrelBlockEntity)) {
             serverPlayer.sendSystemMessage(
-                    Component.literal("§cSign must be on a chest!"),
+                    Component.literal("§cSign must be on a chest or barrel!"),
                     true
             );
             return;
@@ -145,7 +148,7 @@ public abstract class SignBlockEntityMixin {
             bartershop$markInvalid(sign, serverPlayer);
 
             serverPlayer.sendSystemMessage(
-                    Component.literal("§cThis chest already has a shop!"),
+                    Component.literal("§cThis container already has a shop!"),
                     true
             );
             return;

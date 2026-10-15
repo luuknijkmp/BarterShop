@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.world.Container;
 import net.minecraft.world.level.block.ChestBlock;
+import net.minecraft.world.level.block.entity.BarrelBlockEntity;
 
 public class BarterShop implements ModInitializer {
 
@@ -209,7 +210,8 @@ public class BarterShop implements ModInitializer {
 			BlockPos clickedPos = hitResult.getBlockPos();
 
 // Check whether the player is opening a registered shop chest.
-			if (level.getBlockEntity(clickedPos) instanceof ChestBlockEntity) {
+			if (level.getBlockEntity(clickedPos) instanceof ChestBlockEntity
+					|| level.getBlockEntity(clickedPos) instanceof BarrelBlockEntity) {
 
 				ShopData chestShop = ShopManager.getShopByChest(
 						serverPlayer.level(),
@@ -223,7 +225,7 @@ public class BarterShop implements ModInitializer {
 
 					serverPlayer.sendSystemMessage(
 							Component.literal(
-									"§cOnly the shop owner can open this chest!"
+									"§cOnly the shop owner can open this container!"
 							),
 							true
 					);
@@ -263,11 +265,11 @@ public class BarterShop implements ModInitializer {
 			BlockPos chestPos = signPos.relative(facing.getOpposite());
 
 
-			if (!(level.getBlockEntity(chestPos)
-					instanceof ChestBlockEntity)) {
+			if (!(level.getBlockEntity(chestPos) instanceof ChestBlockEntity)
+					&& !(level.getBlockEntity(chestPos) instanceof BarrelBlockEntity)) {
 
 				serverPlayer.sendSystemMessage(
-						Component.literal("§cSign must be attached to a chest!"),
+						Component.literal("§cSign must be attached to a chest or barrel!"),
 						true
 				);
 
@@ -319,6 +321,8 @@ public class BarterShop implements ModInitializer {
 						chestPos,
 						true
 				);
+			} else if (level.getBlockEntity(chestPos) instanceof BarrelBlockEntity barrel) {
+				chest = barrel;
 			}
 
 			if (chest == null) {
