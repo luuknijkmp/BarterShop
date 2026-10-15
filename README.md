@@ -1,8 +1,6 @@
-![BarterShop Icon](https://cdn.modrinth.com/data/cached_images/56a01f26c0a59c3676105aa89b2922c7367bf735.png)
+# BarterShop
 
 [Download on Modrinth](https://modrinth.com/project/bartershop)
-
-# BarterShop
 
 BarterShop is a lightweight, server-friendly chest shop mod that lets players buy and sell items using simple signs and item-based trades. Create secure shops without commands, complicated setups, or a client-side installation.
 
