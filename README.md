@@ -95,6 +95,7 @@ When protection is disabled, normal container access, block breaking, and item e
 - **Persistent Shops** - Registered shops remain available after world restarts.
 - **Server-Side Multiplayer Support** - Players can join and trade without installing the mod on their clients.
 - **Singleplayer Support** - Create and test shops in your own worlds too.
+- **Localization** - Support for multiple languages, with en_us and nl_nl currently supported in the base mod.
 
 ## Bug Reports & Suggestions
 
