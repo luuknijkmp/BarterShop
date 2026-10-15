@@ -4,14 +4,14 @@
 
 BarterShop is a lightweight, server-friendly chest shop mod that lets players buy and sell items using simple signs and item-based trades. Create secure shops without commands, complicated setups, or a client-side installation.
 
-Built for survival multiplayer, BarterShop makes trading with other players as simple as placing a chest and writing a sign.
+Built for survival multiplayer, BarterShop makes trading with other players as simple as placing a chest or barrel and writing a sign.
 
 ## Installation
 
 1. Install Minecraft **26.2** with **Fabric Loader**.
-2. Install the compatible version of **Fabric API**.
-3. [Download BarterShop from Modrinth](https://modrinth.com/project/bartershop).
-4. Place the BarterShop JAR in your `mods` folder.
+2. Install the compatible version of **[Fabric API](https://modrinth.com/mod/fabric-api)**.
+3. [Download **BarterShop** from Modrinth](https://modrinth.com/project/bartershop).
+4. Place the BarterShop and the Fabric API JAR in your `mods` folder.
 5. Launch Minecraft or start your Fabric server.
 
 **For multiplayer:** Install BarterShop and Fabric API on the **server**. Connecting players do **not** need to install BarterShop.
@@ -20,8 +20,8 @@ Built for survival multiplayer, BarterShop makes trading with other players as s
 
 ## Create a Shop
 
-1. Place a chest (or double chest) where you want your shop.
-2. Attach a **wall sign** to the chest.
+1. Place a chest, double chest or barrel where you want your shop.
+2. Attach a **wall sign** to the chest or barrel.
 3. Enter the following text on the sign:
 
    ```text
@@ -31,42 +31,42 @@ Built for survival multiplayer, BarterShop makes trading with other players as s
    ```
 
 4. Finish editing the sign. BarterShop registers the shop and automatically adds your player name to the fourth line.
-5. Stock the chest with the items you're selling.
+5. Stock the chest or barrel with the items you're selling.
 
-In this example, a customer can trade **1 diamond** for **16 oak logs**. The diamond is deposited into the shop chest, and the customer receives the logs.
+In this example, a customer can trade **1 diamond** for **16 oak logs**. The diamond is deposited into the shop container, and the customer receives the logs.
 
 The sign lines mean:
 
-- **Line 1:** `[SHOP]` — identifies the sign as a shop.
-- **Line 2:** `16 oak_log` — the amount and item the shop sells.
-- **Line 3:** `1 diamond` — the amount and item the customer pays.
-- **Line 4:** Your username — filled in automatically.
+- **Line 1:** `[SHOP]` - identifies the sign as a shop.
+- **Line 2:** `16 oak_log` - the amount and item the shop sells.
+- **Line 3:** `1 diamond` - the amount and item the customer pays.
+- **Line 4:** Your username - filled in automatically.
 
-Use Minecraft item IDs such as `oak_log`, `iron_ingot`, or `diamond` when setting up a trade.
+Use Minecraft item IDs such as `oak_log`, `iron_ingot`, or `diamond` when setting up a trade. You can find a list of all item IDs [here](https://nodecraft.com/tools/minecraft/item-ids).
 
 ## Trade with Players
 
 Simply **right-click a shop sign** to make a trade.
 
-BarterShop checks that the chest has enough stock, the buyer has the required payment, and both inventories have room for the exchange. If the trade can't be completed, no items are exchanged.
+BarterShop checks that the chest or barrel has enough stock, the buyer has the required payment, and both inventories have room for the exchange. If the trade can't be completed, no items are exchanged.
 
 Shops use regular Minecraft items as currency, so there's no separate economy or currency system to manage.
+
+## Shop Protection
+
+Registered shops are protected against other players opening or breaking their containers and signs.
+
+BarterShop also protects shop containers from hopper extraction and prevents registered shop blocks from being destroyed by explosions.
+
+Shop owners can manage their own shops, and server operators with the appropriate permissions can manage shops too.
+
+To remove or change your shop, break its sign and create a new one with the trade you want.
 
 ### Admin Permissions
 
 BarterShop provides the `bartershop:admin` permission, allowing server administrators to manage and remove shops owned by other players.
 
 Server operators with **OP level 2 or higher** automatically have this permission. The permission can also be used with compatible permission management mods, such as LuckPerms.
-
-## Shop Protection
-
-Registered shops are protected against other players opening or breaking their chests and signs.
-
-BarterShop also protects shop chests from hopper extraction and prevents registered shop blocks from being destroyed by explosions.
-
-Shop owners can manage their own shops, and server operators with the appropriate permissions can manage shops too.
-
-To remove or change your shop, break its sign and create a new one with the trade you want.
 
 ### Shop Protection Gamerule
 
@@ -82,15 +82,15 @@ To enable it again:
 /gamerule bartershop:shop_protection true
 ```
 
-When protection is disabled, normal chest access, block breaking, and item extraction behavior is restored.
+When protection is disabled, normal container access, block breaking, and item extraction behavior is restored.
 
 ## ⭐ Features
 
-- **Simple Sign Shops** - Create shops using a chest and a wall sign, with no commands required.
+- **Simple Sign Shops** - Create shops using a chest or barrel and a wall sign, with no commands required.
 - **Item-for-Item Trading** - Exchange any supported Minecraft items without a separate currency.
-- **Single & Double Chests** - Use regular or double chests for shop storage.
+- **Single & Double Chests** - Use regular chests, double chests or barrels for shop storage.
 - **Secure Transactions** - Trades only complete when the stock, payment, and inventory space are available.
-- **Shop Protection** - Prevent unauthorized chest access, block breaking, hopper extraction, and explosion damage.
+- **Shop Protection** - Prevent unauthorized container access, block breaking, hopper extraction, and explosion damage.
 - **Automatic Sign Formatting** - Shop signs are formatted and signed with the owner's name.
 - **Persistent Shops** - Registered shops remain available after world restarts.
 - **Server-Side Multiplayer Support** - Players can join and trade without installing the mod on their clients.
