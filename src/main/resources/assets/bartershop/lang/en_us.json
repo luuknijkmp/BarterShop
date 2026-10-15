@@ -1,0 +1,17 @@
+{
+  "message.bartershop.trade_success": "Trade successful!",
+  "message.bartershop.shop_created": "Shop created successfully!",
+  "message.bartershop.inventory_full": "Your inventory is full!",
+  "message.bartershop.out_of_stock": "Shop is out of stock!",
+  "message.bartershop.insufficient_payment": "You don't have enough payment items!",
+  "message.bartershop.chest_full": "Shop chest has no room for payment!",
+  "message.bartershop.shop_removed": "Shop removed!",
+  "message.bartershop.invalid_trade": "Invalid trade format!",
+  "message.bartershop.not_registered": "This shop is not registered!",
+  "message.bartershop.already_registered": "This container already has a shop!",
+  "message.bartershop.invalid_container": "Sign must be attached to a chest or barrel!",
+  "message.bartershop.container_unavailable": "Shop container is unavailable!",
+  "message.bartershop.no_access": "Only the shop owner can open this container!",
+  "message.bartershop.no_break": "You cannot break someone else's shop!",
+  "message.bartershop.sign_not_registered": "NOT REGISTERED"
+}

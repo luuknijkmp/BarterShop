@@ -16,7 +16,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.server.level.ServerPlayer;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.minecraft.network.protocol.game.ClientboundBlockUpdatePacket;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.world.Container;
@@ -38,7 +37,7 @@ public class BarterShop implements ModInitializer {
 	public void onInitialize() {
 
 		ShopGameRules.initialize();
-
+		ShopLanguage.initialize();
 
 		PlayerBlockBreakEvents.BEFORE.register(
 				(level, player, pos, state, blockEntity) -> {
@@ -77,8 +76,8 @@ public class BarterShop implements ModInitializer {
 					}
 
 					serverPlayer.sendSystemMessage(
-							Component.literal(
-									"§cYou cannot break someone else's shop!"
+							Component.literal
+									("§c" + ShopLanguage.translate("message.bartershop.no_break")
 							),
 							true
 					);
@@ -148,9 +147,9 @@ public class BarterShop implements ModInitializer {
 					);
 
 					serverPlayer.sendSystemMessage(
-							Component.literal(
-									"§eShop removed."
-							),
+							Component.literal
+									("§e" + ShopLanguage.translate("message.bartershop.shop_removed")
+									),
 							true
 					);
 				}
@@ -224,9 +223,9 @@ public class BarterShop implements ModInitializer {
 						&& !ShopPermissions.canManageShop(serverPlayer, chestShop)) {
 
 					serverPlayer.sendSystemMessage(
-							Component.literal(
-									"§cOnly the shop owner can open this container!"
-							),
+							Component.literal
+									("§c" + ShopLanguage.translate("message.bartershop.no_access")
+									),
 							true
 					);
 
@@ -269,7 +268,9 @@ public class BarterShop implements ModInitializer {
 					&& !(level.getBlockEntity(chestPos) instanceof BarrelBlockEntity)) {
 
 				serverPlayer.sendSystemMessage(
-						Component.literal("§cSign must be attached to a chest or barrel!"),
+						Component.literal
+								("§c" + ShopLanguage.translate("message.bartershop.invalid_container")
+								),
 						true
 				);
 
@@ -283,9 +284,9 @@ public class BarterShop implements ModInitializer {
 
 			if (registeredShop == null) {
 				serverPlayer.sendSystemMessage(
-						Component.literal(
-								"§cThis shop is not registered!"
-						),
+						Component.literal
+								("§c" + ShopLanguage.translate("message.bartershop.not_registered")
+								),
 						true
 				);
 
@@ -299,7 +300,7 @@ public class BarterShop implements ModInitializer {
 
 			if (trade == null) {
 				serverPlayer.sendSystemMessage(
-						Component.literal("§cInvalid trade format!"),
+						Component.literal("§c" + ShopLanguage.translate("message.bartershop.invalid_trade")),
 						true
 				);
 
@@ -327,9 +328,9 @@ public class BarterShop implements ModInitializer {
 
 			if (chest == null) {
 				serverPlayer.sendSystemMessage(
-						Component.literal(
-								"§cShop chest is unavailable!"
-						),
+						Component.literal
+								("§c" + ShopLanguage.translate("message.bartershop.container_unavailable")
+								),
 						true
 				);
 
@@ -349,7 +350,9 @@ public class BarterShop implements ModInitializer {
 				);
 			} else {
 				serverPlayer.sendSystemMessage(
-						Component.literal("§aTrade successful!"),
+						Component.literal(
+								"§a" + ShopLanguage.translate("message.bartershop.trade_success")
+						),
 						true
 				);
 			}

@@ -1,0 +1,17 @@
+{
+  "message.bartershop.trade_success": "Ruil succesvol!",
+  "message.bartershop.shop_created": "Winkel succesvol aangemaakt!",
+  "message.bartershop.inventory_full": "Je inventaris is vol!",
+  "message.bartershop.out_of_stock": "De winkel heeft onvoldoende voorraad!",
+  "message.bartershop.insufficient_payment": "Je hebt niet genoeg betaalitems!",
+  "message.bartershop.chest_full": "Er is geen ruimte voor de betaling!",
+  "message.bartershop.shop_removed": "Winkel verwijderd!",
+  "message.bartershop.invalid_trade": "Ongeldige winkelruil!",
+  "message.bartershop.not_registered": "Deze winkel is niet geregistreerd!",
+  "message.bartershop.already_registered": "Deze opslag heeft al een winkel!",
+  "message.bartershop.invalid_container": "Het bord moet aan een kist of ton bevestigd zijn!",
+  "message.bartershop.container_unavailable": "De winkelopslag is niet beschikbaar!",
+  "message.bartershop.no_access": "Alleen de winkeleigenaar mag deze opslag openen!",
+  "message.bartershop.no_break": "Je mag de winkel van iemand anders niet slopen!",
+  "message.bartershop.sign_not_registered": "ONGELDIG"
+}

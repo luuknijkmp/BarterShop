@@ -24,22 +24,22 @@ public class ShopTransaction {
 
         if (!remove(chestCopy, trade.sellingItem(),
                 trade.sellingAmount())) {
-            return "Shop is out of stock!";
+            return ShopLanguage.translate("message.bartershop.out_of_stock");
         }
 
         if (!remove(playerCopy, trade.paymentItem(),
                 trade.paymentAmount())) {
-            return "You don't have enough payment items!";
+            return ShopLanguage.translate("message.bartershop.insufficient_payment");
         }
 
         if (!insert(chestCopy, trade.paymentItem(),
                 trade.paymentAmount(), chest.getMaxStackSize())) {
-            return "Shop chest has no room for payment!";
+            return ShopLanguage.translate("message.bartershop.chest_full");
         }
 
         if (!insert(playerCopy, trade.sellingItem(),
                 trade.sellingAmount(), inventory.getMaxStackSize())) {
-            return "Your inventory is full!";
+            return ShopLanguage.translate("message.bartershop.inventory_full");
         }
 
         // All checks passed. Commit both inventories.

@@ -25,6 +25,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.world.level.block.entity.BarrelBlockEntity;
+import com.siskin.bartershop.ShopLanguage;
 
 import java.util.List;
 import java.util.UUID;
@@ -103,7 +104,7 @@ public abstract class SignBlockEntityMixin {
         if (ShopSignParser.parse(sign) == null) {
             bartershop$markInvalid(sign, serverPlayer);
             serverPlayer.sendSystemMessage(
-                    Component.literal("§cInvalid shop trade!"),
+                    Component.literal("§c" + ShopLanguage.translate("message.bartershop.invalid_trade")),
                     true
             );
             return;
@@ -125,7 +126,7 @@ public abstract class SignBlockEntityMixin {
         if (!(container instanceof ChestBlockEntity)
                 && !(container instanceof BarrelBlockEntity)) {
             serverPlayer.sendSystemMessage(
-                    Component.literal("§cSign must be on a chest or barrel!"),
+                    Component.literal("§c" + ShopLanguage.translate("message.bartershop.invalid_container")),
                     true
             );
             return;
@@ -148,7 +149,7 @@ public abstract class SignBlockEntityMixin {
             bartershop$markInvalid(sign, serverPlayer);
 
             serverPlayer.sendSystemMessage(
-                    Component.literal("§cThis container already has a shop!"),
+                    Component.literal("§c" + ShopLanguage.translate("message.bartershop.already_registered")),
                     true
             );
             return;
@@ -202,7 +203,7 @@ public abstract class SignBlockEntityMixin {
         );
 
         serverPlayer.sendSystemMessage(
-                Component.literal("§aShop created successfully!"),
+                Component.literal("§a" + ShopLanguage.translate("message.bartershop.shop_created")),
                 true
         );
     }
@@ -216,7 +217,7 @@ public abstract class SignBlockEntityMixin {
         sign.updateText(
                 text -> text.setMessage(
                         3,
-                        Component.literal("NOT REGISTERED")
+                        Component.literal(ShopLanguage.translate("message.bartershop.sign_not_registered"))
                                 .withStyle(ChatFormatting.RED)
                 ),
                 true
