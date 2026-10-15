@@ -37,10 +37,10 @@ In this example, a customer can trade **1 diamond** for **16 oak logs**. The dia
 
 The sign lines mean:
 
-- **Line 1:** `[SHOP]` — identifies the sign as a shop.
-- **Line 2:** `16 oak_log` — the amount and item the shop sells.
-- **Line 3:** `1 diamond` — the amount and item the customer pays.
-- **Line 4:** Your username — filled in automatically.
+- **Line 1:** `[SHOP]` - identifies the sign as a shop.
+- **Line 2:** `16 oak_log` - the amount and item the shop sells.
+- **Line 3:** `1 diamond` - the amount and item the customer pays.
+- **Line 4:** Your username - filled in automatically.
 
 Use Minecraft item IDs such as `oak_log`, `iron_ingot`, or `diamond` when setting up a trade. You can find a list of all item IDs [here](https://nodecraft.com/tools/minecraft/item-ids).
 
